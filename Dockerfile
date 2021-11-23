@@ -1,18 +1,21 @@
-From python:3
+FROM alpine:latest
 
 MAINTAINER Jeff Clough
 
+RUN apk add --no-cache bash
+
 # Make sure apt-get is up to date.
-RUN apt-get updte && apt-get upgrade -y
+#RUN apt-get update && apt-get upgrade -y
 
 # Make sure pip is up to date, and install some packages we need.
-RUN /usr/local/bin/python -m pip install --upgrade pip && pip install fastapi uvicorn
+#RUN /usr/local/bin/python -m pip install --upgrade pip && pip install fastapi uvicorn
 
 # Create the account we're our service will run as.
-RUN useradd -ms /bin/bash srv
+#RUN useradd -ms /bin/bash srv
+#WORKDIR /home/srv
 
 # Install some creature comforts for development purposes.
-apt-get install less vim
-copy srv/.*rc /home/root
+#RUN apt-get install less vim
+#COPY srv/.*rc /home/root
 
 ENTRYPOINT ["/bin/bash"]

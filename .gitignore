@@ -1,6 +1,10 @@
 # Vim swap files
 *.swp
 
+# venv directories and files
+pyvenv.cfg
+bin/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -12,16 +12,18 @@
 H="$(cd "$(dirname "${BASH_SOURCE[0]}")"; pwd)"
 #docker run -Pitdv "$H/code":/home/whitepages/code wp
 
-for f in config.env config.secrets
-do
-  if [ ! -r "$H/$f" -o -d "$H/$f" ]; then
-    echo "$f not found or is a directory"
-    exit 1
-  fi
-done
+#for f in config.env config.secrets
+#do
+#  if [ ! -r "$H/$f" -o -d "$H/$f" ]; then
+#    echo "$f not found or is a directory"
+#    exit 1
+#  fi
+#done
 
 docker run -itd \
-	--rm \
-	-v "$H/srv":/home/srv \
-        "$@" \
-        podserver:latest
+  --rm \
+  --cap-add SYS_ADMIN \
+  --cap-add SYS_TIME \
+  -v "$H/srv":/home/srv \
+  "$@" \
+  podserver:latest
