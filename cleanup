@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Remove all exited containers.
+l=$(docker ps -aq -f status=exited)
+[ -n "$l" ] && docker rm $l
+
+# Remove all iamges with no attached container (without confirmation).
+docker image prune -af

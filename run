@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Run the latest "gmp" container in the background.
+# Use `connect` to connect to it interactively.
+
+#
+# The -itd option combination might seem contradictory, but while -d makes the
+# container run in the background, the -it options allow us to connect to it
+# interactively. (Otherwise, it would exit immediately, which is frustrating.)
+#
+
+H="$(cd "$(dirname "${BASH_SOURCE[0]}")"; pwd)"
+#docker run -Pitdv "$H/code":/home/whitepages/code wp
+
+for f in config.env config.secrets
+do
+  if [ ! -r "$H/$f" -o -d "$H/$f" ]; then
+    echo "$f not found or is a directory"
+    exit 1
+  fi
+done
+
+docker run -itd \
+	--rm \
+	-v "$H/srv":/home/srv \
+        "$@" \
+        podserver:latest

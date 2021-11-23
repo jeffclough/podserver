@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Connect to the most recently started Docker container interactively.
+
+container=$(docker ps -lf status=running -q)
+if [ -n "$container" ]; then
+  docker exec -it $(docker ps -laq) bash
+else
+  echo "No running container found." >/dev/stderr
+  exit 1
+fi

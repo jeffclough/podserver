@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Stop all running containers.
+containers=$(docker ps -f status=running -q)
+[ -n "$containers" ] && docker container stop $containers
+
+# Remove all exited containers.
+containers=$(docker ps -f status=exited -q)
+[ -n "$containers" ] && docker container rm $containers
+
